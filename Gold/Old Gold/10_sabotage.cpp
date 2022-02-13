@@ -1,0 +1,82 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+typedef long long ll;
+typedef long double ld;
+typedef double db;
+typedef pair<int,int> pi;
+typedef vector<int> vi; 
+typedef vector<pi> vpi;
+
+#define mp make_pair
+#define f first
+#define s second
+#define sz(x) (int)(x).size()
+#define all(x) begin(x), end(x)
+#define bk back()
+#define pb push_back
+
+#define FOR(i,a,b) for (int i = (a); i < (b); ++i)
+#define For(i,a) FOR(i,0,a)
+#define ROF(i,a,b) for (int i = (b)-1; i >= (a); --i)
+#define Rof(i,a) ROF(i,0,a)
+#define trav(a,x) for (auto& a: x)
+
+#define nl '\n' 
+
+const int MOD = 1e9+7;
+const int MX = 3e5+7;
+const ld PI = acos((ld)-1);
+mt19937 rng; // or mt19937_64
+template<class T> bool ckmin(T& a, const T& b) { 
+	return b < a ? a = b, 1 : 0; }
+ll cdiv(ll a, ll b) { return a/b+((a^b)>0&&a%b); } // divide a by b rounded up
+ll fdiv(ll a, ll b) { return a/b-((a^b)<0&&a%b); } // divide a by b rounded down
+
+void DBG() { cerr << "]" << endl; }
+template<class H, class... T> void DBG(H h, T... t) {
+	cerr << h; if (sizeof...(t)) cerr << ", ";
+	DBG(t...); }
+#ifdef LOCAL // compile with -DLOCAL
+#define dbg(...) cerr << "LINE(" << __LINE__ << ") -> [" << #__VA_ARGS__ << "]: [", DBG(__VA_ARGS__)
+#else
+#define dbg(...) 0
+#endif
+
+void setIO(string s) {
+	ios_base::sync_with_stdio(0); cin.tie(0); 
+	freopen((s+".in").c_str(),"r",stdin);
+	freopen((s+".out").c_str(),"w",stdout);
+}
+
+ld cur=0;
+
+int main() {
+	setIO("sabotage");
+	int n; cin>> n;
+	ld a[n];
+	For(i,n){
+		cin>>a[i];//?
+	}
+	cur=a[0]+a[n-1];
+	int cnt=2;
+	ld mn=1000*cur/cnt;
+	dbg(mn);
+	int l=1,r=n-2;
+	while(l<r){//take lower ones
+		cnt++;
+		if(a[l]<a[r]){
+			cur+=a[l];
+			ckmin(mn,1000*cur/cnt);
+			l++;
+		}
+		else{
+			cur+=a[r];
+			ckmin(mn,1000*cur/cnt);
+			r--;
+		}
+	}
+	ll x=round(mn);
+	cout << (ld)x/1000 << nl;
+	dbg(x);
+}	
